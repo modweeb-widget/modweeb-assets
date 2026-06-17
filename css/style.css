@@ -1,0 +1,191 @@
+/* ========================================
+   MODWEEB DESIGN - STYLE SHEET
+   Version: 1.0.0
+   Author: Modweeb
+   License: MIT
+   ======================================== */
+
+/* ===== [1] المتغيرات الرئيسية ===== */
+:root {
+  /* الألوان الأساسية */
+  --bodyB: #f9fafb;
+  --bodyC: #1f2937;
+  --contentB: #ffffff;
+  --contentL: #e5e7eb;
+  --headC: #111827;
+  --linkB: #000000;
+  --linkC: #3b82f6;
+  --white: #ffffff;
+  --notifB: #1f2937;
+  --notifC: #ffffff;
+  
+  /* الخطوط والأحجام */
+  --font-base: 16px;
+  --radius: 20px;
+  --shadow: 0 1px 3px 0 rgba(0,0,0,.1);
+}
+
+/* ===== [2] إعادة تعيين الهوامش ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  color: var(--bodyC);
+  background: var(--bodyB);
+}
+
+/* ===== [3] الحاويات الرئيسية ===== */
+.login-fullpage {
+  position: fixed;
+  inset: 0;
+  background: var(--bodyB);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: 100vh;
+}
+
+/* ===== [4] الهيدر ===== */
+header {
+  background: var(--contentB);
+  border-bottom: 1px solid var(--contentL);
+  color: var(--bodyC);
+}
+
+header a {
+  color: var(--headC);
+  text-decoration: none;
+}
+
+/* ===== [5] الفوتر ===== */
+footer {
+  border-top: 1px solid var(--contentL);
+  font-size: 9px;
+  margin-top: 0;
+  padding: 0;
+}
+
+footer a {
+  color: var(--bodyC);
+  font-size: 9px;
+}
+footer a:hover {
+  color: var(--headC);
+}
+footer span {
+  font-size: 9px;
+}
+footer .text-sm {
+  font-size: 9px !important;
+}
+
+/* ===== [6] البطاقات ===== */
+.card {
+  background: var(--contentB);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--contentL);
+  padding: 0;
+  margin: 0 auto;
+}
+
+/* ===== [7] الأزرار ===== */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all .2s;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  padding: 4px 7px;
+  gap: 3px;
+}
+
+.button-black {
+  background: #000;
+  color: var(--white);
+}
+.button-black:hover {
+  background: #262626;
+}
+
+.button-outline {
+  background: transparent;
+  border: 1px solid var(--contentL);
+  color: var(--bodyC);
+}
+.button-outline:hover {
+  background: var(--bodyB);
+}
+
+/* ===== [8] الروابط ===== */
+.link {
+  color: var(--linkC);
+  text-decoration: underline;
+}
+.link:hover {
+  color: var(--headC);
+}
+
+/* ===== [9] الإشعارات ===== */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--notifB);
+  color: var(--notifC);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.toast.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== [10] الوضع الليلي ===== */
+.dark-mode {
+  --bodyB: #1a1a1a;
+  --bodyC: #e5e5e5;
+  --contentB: #2d2d2d;
+  --contentL: #404040;
+  --headC: #ffffff;
+  --white: #ffffff;
+  --notifB: #1f2937;
+  --notifC: #e5e5e5;
+}
+
+/* ===== [11] زر تبديل الوضع ===== */
+.theme-toggle svg {
+  transition: transform 0.3s ease;
+}
+.theme-toggle:hover svg {
+  transform: rotate(30deg);
+}
+
+/* ===== [12] الاستجابة للجوال ===== */
+@media (max-width: 400px) {
+  .card {
+    max-width: 90vw;
+  }
+}
