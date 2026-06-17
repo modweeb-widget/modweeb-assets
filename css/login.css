@@ -4,6 +4,7 @@
    Author: Modweeb
    ======================================== */
 
+/* ===== [1] تنسيقات خاصة بصفحة تسجيل الدخول ===== */
 .login-container h1,
 .login-container h2,
 .login-container h3,
@@ -33,17 +34,41 @@
   height: 100%;
 }
 
+/* ===== [2] زر جوجل ===== */
 #custom-google-btn.button-outline {
   border-radius: 15px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 10px 16px !important;
+  font-size: 13px !important;
 }
 
+#custom-google-btn.button-outline svg {
+  width: 18px !important;
+  height: 18px !important;
+  margin-left: 0 !important;
+}
+
+#custom-google-btn.button-outline:hover {
+  background: var(--bodyB);
+}
+
+/* ===== [3] الروابط أسفل البطاقة ===== */
 .px-6 {
   font-size: 10px;
 }
 
-/* استجابة للجوال */
+/* ===== [4] استجابة للجوال ===== */
 @media (max-width: 300px) {
   .card {
     max-width: 95vw;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    max-width: 90vw;
   }
 }

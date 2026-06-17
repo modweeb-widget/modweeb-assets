@@ -7,7 +7,6 @@
 
 /* ===== [1] المتغيرات الرئيسية ===== */
 :root {
-  /* الألوان الأساسية */
   --bodyB: #f9fafb;
   --bodyC: #1f2937;
   --contentB: #ffffff;
@@ -18,11 +17,6 @@
   --white: #ffffff;
   --notifB: #1f2937;
   --notifC: #ffffff;
-  
-  /* الخطوط والأحجام */
-  --font-base: 16px;
-  --radius: 20px;
-  --shadow: 0 1px 3px 0 rgba(0,0,0,.1);
 }
 
 /* ===== [2] إعادة تعيين الهوامش ===== */
@@ -44,7 +38,7 @@ body {
   background: var(--bodyB);
 }
 
-/* ===== [3] الحاويات الرئيسية ===== */
+/* ===== [3] حاوية الصفحة الرئيسية ===== */
 .login-fullpage {
   position: fixed;
   inset: 0;
@@ -56,7 +50,7 @@ body {
   height: 100vh;
 }
 
-/* ===== [4] الهيدر ===== */
+/* ===== [4] تنسيق الهيدر ===== */
 header {
   background: var(--contentB);
   border-bottom: 1px solid var(--contentL);
@@ -68,12 +62,14 @@ header a {
   text-decoration: none;
 }
 
-/* ===== [5] الفوتر ===== */
+/* ===== [5] تنسيق الفوتر ===== */
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--contentB);
   border-top: 1px solid var(--contentL);
-  font-size: 9px;
-  margin-top: 0;
-  padding: 0;
 }
 
 footer a {
@@ -90,17 +86,47 @@ footer .text-sm {
   font-size: 9px !important;
 }
 
-/* ===== [6] البطاقات ===== */
+/* ===== [6] تنسيقات SVG العامة ===== */
+svg path, svg line, svg circle, svg rect {
+  stroke: currentColor;
+}
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* ===== [7] تنسيق البطاقات ===== */
 .card {
   background: var(--contentB);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  border-radius: 20px;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
   border: 1px solid var(--contentL);
   padding: 0;
   margin: 0 auto;
 }
 
-/* ===== [7] الأزرار ===== */
+.card-content {
+  padding: 13px 14px 13px 13px !important;
+}
+.bg-card {
+  background: var(--contentB);
+}
+.rounded-md {
+  border-radius: 0.37rem;
+}
+
+/* ===== [8] استجابة للجوال ===== */
+@media (max-width: 400px) {
+  .card {
+    max-width: 90vw;
+  }
+  .card-content {
+    padding: 4px 2vw 5px 3vw !important;
+  }
+}
+
+/* ===== [9] تنسيق الأزرار ===== */
 .button {
   display: inline-flex;
   align-items: center;
@@ -114,6 +140,14 @@ footer .text-sm {
   border: none;
   padding: 4px 7px;
   gap: 3px;
+}
+
+.button svg {
+  width: 17px;
+  height: 17px;
+  margin-left: 5px;
+  margin-right: 0;
+  vertical-align: middle;
 }
 
 .button-black {
@@ -133,7 +167,7 @@ footer .text-sm {
   background: var(--bodyB);
 }
 
-/* ===== [8] الروابط ===== */
+/* ===== [10] روابط ونصوص مساعدة ===== */
 .link {
   color: var(--linkC);
   text-decoration: underline;
@@ -141,8 +175,204 @@ footer .text-sm {
 .link:hover {
   color: var(--headC);
 }
+.text-muted-foreground {
+  color: var(--bodyC);
+}
+.wrap-break-word {
+  word-wrap: break-word;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.compact-title {
+  margin: 0 0 1px 0;
+  line-height: 1.0;
+  font-size: 18px;
+}
+.compact-subtitle {
+  margin: 0 0 1px 0;
+  line-height: 1.0;
+  font-size: 14px;
+}
 
-/* ===== [9] الإشعارات ===== */
+/* ===== [11] PRELOADER - مكون التحميل المسبق ===== */
+.pldW {
+  display: none;
+  direction: ltr;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--bodyB);
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  visibility: visible;
+  opacity: 1;
+  transition: all .8s ease;
+}
+.pldW.e {
+  display: flex;
+}
+.pldW.h {
+  opacity: 0;
+  visibility: hidden;
+}
+:root:has(.pldW.e) {
+  overflow: hidden;
+}
+
+/* ===== [12] SVG Loader ===== */
+.svg-loader {
+  --c1: rgba(225,20,98,0.9);
+  --c2: rgba(111,202,220,0.9);
+  --c3: rgba(61,184,143,0.9);
+  --c4: rgba(233,169,32,0.9);
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.svg-loader svg {
+  width: 100%;
+  height: 100%;
+}
+.svg-loader path {
+  stroke-width: 8;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  fill: transparent;
+  transition: fill .3s ease;
+}
+
+/* ===== [13] أجزاء SVG المتحركة ===== */
+.svg-loader .part1 {
+  stroke: rgba(225,20,98,0.9);
+  animation: draw 1s ease-in-out forwards, fill-part1 .3s ease-in-out 1s forwards;
+}
+.svg-loader .part2 {
+  stroke: rgba(111,202,220,0.9);
+  animation: draw 1s ease-in-out .25s forwards, fill-part2 .3s ease-in-out 1.25s forwards;
+}
+.svg-loader .part3 {
+  stroke: rgba(61,184,143,0.9);
+  animation: draw 1s ease-in-out .5s forwards, fill-part3 .3s ease-in-out 1.5s forwards;
+}
+.svg-loader .part4 {
+  stroke: rgba(233,169,32,0.9);
+  animation: draw 1s ease-in-out .75s forwards, fill-part4 .3s ease-in-out 1.75s forwards;
+}
+
+/* ===== [14] حركات الرسم والتعبئة ===== */
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fill-part1 {
+  to { fill: rgba(225,20,98,0.9); }
+}
+@keyframes fill-part2 {
+  to { fill: rgba(111,202,220,0.9); }
+}
+@keyframes fill-part3 {
+  to { fill: rgba(61,184,143,0.9); }
+}
+@keyframes fill-part4 {
+  to { fill: rgba(233,169,32,0.9); }
+}
+
+/* ===== [15] تأثير النبض الخلفي ===== */
+.pldW::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(225,20,98,.1) 0, rgba(111,202,220,.1) 50%, rgba(61,184,143,.1) 100%);
+  animation: pulse-bg 1.5s infinite ease-out;
+  z-index: -1;
+}
+@keyframes pulse-bg {
+  0% {
+    transform: translate(-50%, -50%) scale(.8);
+    opacity: .6;
+  }
+  50% {
+    background: radial-gradient(circle, rgba(233,169,32,.1) 0, rgba(225,20,98,.1) 50%, rgba(111,202,220,.1) 100%);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+  100% { opacity: 0; }
+}
+
+/* ===== [16] تنسيقات صفحة تسجيل الدخول ===== */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.max-w-md {
+  max-width: 330px !important;
+  transform: translateY(-80px);
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.login-container h1, .login-container h2, .login-container h3, .login-container p, .login-container span {
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== [17] البطاقة الرئيسية ===== */
+@media (max-width: 300px) {
+  .card { max-width: 95vw; }
+}
+.card .p-4 { padding: 0.5rem; }
+.card .pt-2 { padding-top: 0.5rem; }
+.card .pb-0 { padding-bottom: 0; }
+
+.text-neutral-900 { color: var(--headC); }
+.text-neutral-500 { color: var(--bodyC); }
+.text-neutral-700 { color: var(--headC); }
+.px-6 { font-size: 10px; }
+
+/* ===== [18] زر تسجيل الدخول ===== */
+#custom-google-btn.button-outline {
+  border-radius: 15px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+#custom-google-btn.button-outline svg {
+  margin-left: 0;
+  width: 18px;
+  height: 18px;
+}
+
+#custom-google-btn.button-outline:hover {
+  background: var(--bodyB);
+}
+
+/* ===== [19] Toast ===== */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -163,7 +393,7 @@ footer .text-sm {
   pointer-events: auto;
 }
 
-/* ===== [10] الوضع الليلي ===== */
+/* ===== [20] الوضع الليلي ===== */
 .dark-mode {
   --bodyB: #1a1a1a;
   --bodyC: #e5e5e5;
@@ -175,17 +405,25 @@ footer .text-sm {
   --notifC: #e5e5e5;
 }
 
-/* ===== [11] زر تبديل الوضع ===== */
+/* ===== [21] زر تبديل الوضع ===== */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--contentL);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
 .theme-toggle svg {
   transition: transform 0.3s ease;
+  width: 14px;
+  height: 14px;
 }
 .theme-toggle:hover svg {
   transform: rotate(30deg);
-}
-
-/* ===== [12] الاستجابة للجوال ===== */
-@media (max-width: 400px) {
-  .card {
-    max-width: 90vw;
-  }
 }

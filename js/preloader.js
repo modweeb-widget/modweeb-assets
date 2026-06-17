@@ -4,9 +4,7 @@
    Author: Modweeb
    ======================================== */
 
-import CONFIG from './config.js';
-
-// ===== [1] SVG Preloader =====
+// ===== [1] SVG Preloader (مضمن في JS) =====
 const PRELOADER_SVG = `
 <div class='pldW e' id='preloader'>
     <div class='svg-loader'>
@@ -20,48 +18,27 @@ const PRELOADER_SVG = `
 </div>
 `;
 
-// ===== [2] CSS Preloader =====
-const PRELOADER_STYLES = `
-<style>
-    .pldW{display:none;direction:ltr;position:fixed;top:0;right:0;bottom:0;left:0;background:var(--bodyB);align-items:center;justify-content:center;z-index:99999;visibility:visible;opacity:1;transition:all .8s ease}
-    .pldW.e{display:flex}
-    .pldW.h{opacity:0;visibility:hidden}
-    :root:has(.pldW.e){overflow:hidden}
-    
-    .svg-loader{position:relative;width:80px;height:80px}
-    .svg-loader svg{width:100%;height:100%}
-    .svg-loader path{stroke-width:8;stroke-dasharray:1000;stroke-dashoffset:1000;fill:transparent;transition:fill .3s ease}
-    
-    .svg-loader .part1{stroke:rgba(225,20,98,0.9);animation:draw 1s ease-in-out forwards,fill-part1 .3s ease-in-out 1s forwards}
-    .svg-loader .part2{stroke:rgba(111,202,220,0.9);animation:draw 1s ease-in-out .25s forwards,fill-part2 .3s ease-in-out 1.25s forwards}
-    .svg-loader .part3{stroke:rgba(61,184,143,0.9);animation:draw 1s ease-in-out .5s forwards,fill-part3 .3s ease-in-out 1.5s forwards}
-    .svg-loader .part4{stroke:rgba(233,169,32,0.9);animation:draw 1s ease-in-out .75s forwards,fill-part4 .3s ease-in-out 1.75s forwards}
-    
-    @keyframes draw{to{stroke-dashoffset:0}}
-    @keyframes fill-part1{to{fill:rgba(225,20,98,0.9)}}
-    @keyframes fill-part2{to{fill:rgba(111,202,220,0.9)}}
-    @keyframes fill-part3{to{fill:rgba(61,184,143,0.9)}}
-    @keyframes fill-part4{to{fill:rgba(233,169,32,0.9)}}
-    
-    .pldW::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,rgba(225,20,98,.1) 0,rgba(111,202,220,.1) 50%,rgba(61,184,143,.1) 100%);animation:pulse-bg 1.5s infinite ease-out;z-index:-1}
-    @keyframes pulse-bg{0%{transform:translate(-50%,-50%) scale(.8);opacity:.6}50%{background:radial-gradient(circle,rgba(233,169,32,.1) 0,rgba(225,20,98,.1) 50%,rgba(111,202,220,.1) 100%)}70%{transform:translate(-50%,-50%) scale(1.2);opacity:0}100%{opacity:0}}
-</style>
-`;
-
-// ===== [3] دالة تهيئة Preloader =====
-export function initPreloader() {
+// ===== [2] دالة تهيئة Preloader =====
+function initPreloader() {
+    // إضافة الـ Preloader إلى الصفحة
     const container = document.getElementById('preloader-container');
     if (container) {
-        container.innerHTML = PRELOADER_STYLES + PRELOADER_SVG;
+        container.innerHTML = PRELOADER_SVG;
+    } else {
+        // إذا لم يكن هناك container، أضفه مباشرة في body
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = PRELOADER_SVG;
+        while (tempDiv.firstChild) {
+            document.body.prepend(tempDiv.firstChild);
+        }
     }
     
+    // التحكم في الظهور
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
     
-    const key = CONFIG.STORAGE_KEYS.PRELOADER_SHOWN;
-    
-    if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, 'true');
+    if (!sessionStorage.getItem('preloaderShown')) {
+        sessionStorage.setItem('preloaderShown', 'true');
         preloader.classList.add('e');
         preloader.addEventListener('transitionend', function(e) {
             if (e.propertyName === 'opacity' && getComputedStyle(preloader).opacity === '0') {
@@ -75,7 +52,7 @@ export function initPreloader() {
     }
 }
 
-// ===== [4] تشغيل تلقائي =====
+// ===== [3] تشغيل تلقائي =====
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initPreloader);
 } else {
