@@ -1,6 +1,6 @@
 /* ========================================
    MODWEEB DESIGN - STYLE SHEET
-   Version: 1.0.5
+   Version: 1.0.6
    Author: Modweeb
    License: MIT
    ======================================== */
@@ -25,52 +25,82 @@ footer a:hover{color:var(--headC);}
 footer span{font-size:9px;}
 footer .text-sm{font-size:9px !important;}
 
-/* ===== أنماط الأيقونات ===== */
+/* ===== أيقونة تبديل الوضع ===== */
+.theme-toggle {
+    background: var(--contentB) !important;
+    border: 1px solid var(--contentL) !important;
+    border-radius: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all .2s !important;
+}
+.theme-toggle:hover {
+    background: var(--bodyB) !important;
+}
+
+/* ===== أيقونات التواصل الاجتماعي ===== */
+.footer-links a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    background: var(--contentB) !important;
+    border: 1px solid var(--contentL) !important;
+    border-radius: 6px !important;
+    transition: all .2s !important;
+}
+.footer-links a:hover {
+    background: var(--bodyB) !important;
+}
+
+/* ===== صندوق الشعار ===== */
 .logo-box {
-    background: var(--contentB);
-    border: 1px solid var(--contentL);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    background: var(--contentB) !important;
+    border: 1px solid var(--contentL) !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
 }
 .logo-box img {
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
 }
 
-/* ===== أنماط البطاقات ===== */
+/* ===== زر جوجل ===== */
+#custom-google-btn {
+    background: var(--contentB) !important;
+    border: 1px solid var(--contentL) !important;
+    border-radius: 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    padding: 10px !important;
+    color: var(--bodyC) !important;
+}
+#custom-google-btn:hover {
+    background: var(--bodyB) !important;
+}
+
+/* ===== البطاقات ===== */
 .card{background:var(--contentB);border-radius:20px;box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);border:1px solid var(--contentL);padding:0;margin:0 auto;}
-
-@media (max-width:400px){.card{max-width:90vw;}}
-
 .button{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;font-size:11px;font-weight:500;transition:all .2s;cursor:pointer;text-decoration:none;border:none;padding:4px 7px;gap:3px;}
 .button-outline{background:0 0;border:1px solid var(--contentL);color:var(--bodyC);}
 .button-outline:hover{background:var(--bodyB);}
-
 .link{color:var(--linkC);text-decoration:underline;}
 .link:hover{color:var(--headC);}
-
 .content-wrapper{flex:1;display:flex;justify-content:center;align-items:center;padding:20px;}
 .max-w-md{max-width:330px !important;transform:translateY(-80px);}
 .login-container{display:flex;justify-content:center;align-items:center;height:100%;}
-
-#custom-google-btn.button-outline{border-radius:15px;}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--notifB);color:var(--notifC);padding:10px 20px;border-radius:8px;font-size:13px;z-index:99999;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
 .toast.active{opacity:1;pointer-events:auto;}
-
-.theme-toggle{background:var(--contentB);border:1px solid var(--contentL);border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.theme-toggle:hover{background:var(--bodyB);}
-
-.dark-mode {
-  --bodyB: #1a1a1a;
-  --bodyC: #e5e5e5;
-  --contentB: #2d2d2d;
-  --contentL: #404040;
-  --headC: #ffffff;
-  --white: #ffffff;
-  --notifB: #1f2937;
-  --notifC: #e5e5e5;
-}
+.px-6{font-size:10px;}
+.dark-mode{--bodyB:#1a1a1a;--bodyC:#e5e5e5;--contentB:#2d2d2d;--contentL:#404040;--headC:#ffffff;--white:#ffffff;--notifB:#1f2937;--notifC:#e5e5e5;}

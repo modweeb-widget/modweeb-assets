@@ -1,6 +1,6 @@
 /* ========================================
    MODWEEB DESIGN - PRELOADER
-   Version: 1.0.5
+   Version: 1.0.6
    Author: Modweeb
    ======================================== */
 
@@ -18,81 +18,99 @@ const PRELOADER_SVG = `
 </div>
 `;
 
-// ===== [2] إضافة CSS للـ Preloader مباشرة =====
+// ===== [2] إضافة CSS للـ Preloader =====
 const PRELOADER_STYLES = `
 <style>
     .pldW {
-        display: none;
-        direction: ltr;
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: var(--bodyB, #f9fafb);
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-        visibility: visible;
-        opacity: 1;
-        transition: all .8s ease;
+        display: none !important;
+        direction: ltr !important;
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        background: #f9fafb !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 999999 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transition: all .8s ease !important;
     }
-    .pldW.e { display: flex; }
-    .pldW.h { opacity: 0; visibility: hidden; }
-    :root:has(.pldW.e) { overflow: hidden; }
+    .pldW.e {
+        display: flex !important;
+    }
+    .pldW.h {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+    body:has(.pldW.e) {
+        overflow: hidden !important;
+    }
     
     .svg-loader {
-        position: relative;
-        width: 80px;
-        height: 80px;
+        position: relative !important;
+        width: 80px !important;
+        height: 80px !important;
     }
     .svg-loader svg {
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
     }
     .svg-loader path {
-        stroke-width: 8;
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        fill: transparent;
-        transition: fill .3s ease;
+        stroke-width: 8 !important;
+        stroke-dasharray: 1000 !important;
+        stroke-dashoffset: 1000 !important;
+        fill: transparent !important;
+        transition: fill .3s ease !important;
     }
     
     .svg-loader .part1 {
-        stroke: rgba(225,20,98,0.9);
-        animation: draw 1s ease-in-out forwards, fill-part1 .3s ease-in-out 1s forwards;
+        stroke: rgba(225,20,98,0.9) !important;
+        animation: draw 1s ease-in-out forwards, fill-part1 .3s ease-in-out 1s forwards !important;
     }
     .svg-loader .part2 {
-        stroke: rgba(111,202,220,0.9);
-        animation: draw 1s ease-in-out .25s forwards, fill-part2 .3s ease-in-out 1.25s forwards;
+        stroke: rgba(111,202,220,0.9) !important;
+        animation: draw 1s ease-in-out .25s forwards, fill-part2 .3s ease-in-out 1.25s forwards !important;
     }
     .svg-loader .part3 {
-        stroke: rgba(61,184,143,0.9);
-        animation: draw 1s ease-in-out .5s forwards, fill-part3 .3s ease-in-out 1.5s forwards;
+        stroke: rgba(61,184,143,0.9) !important;
+        animation: draw 1s ease-in-out .5s forwards, fill-part3 .3s ease-in-out 1.5s forwards !important;
     }
     .svg-loader .part4 {
-        stroke: rgba(233,169,32,0.9);
-        animation: draw 1s ease-in-out .75s forwards, fill-part4 .3s ease-in-out 1.75s forwards;
+        stroke: rgba(233,169,32,0.9) !important;
+        animation: draw 1s ease-in-out .75s forwards, fill-part4 .3s ease-in-out 1.75s forwards !important;
     }
     
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-    @keyframes fill-part1 { to { fill: rgba(225,20,98,0.9); } }
-    @keyframes fill-part2 { to { fill: rgba(111,202,220,0.9); } }
-    @keyframes fill-part3 { to { fill: rgba(61,184,143,0.9); } }
-    @keyframes fill-part4 { to { fill: rgba(233,169,32,0.9); } }
+    @keyframes draw {
+        to { stroke-dashoffset: 0; }
+    }
+    @keyframes fill-part1 {
+        to { fill: rgba(225,20,98,0.9); }
+    }
+    @keyframes fill-part2 {
+        to { fill: rgba(111,202,220,0.9); }
+    }
+    @keyframes fill-part3 {
+        to { fill: rgba(61,184,143,0.9); }
+    }
+    @keyframes fill-part4 {
+        to { fill: rgba(233,169,32,0.9); }
+    }
     
     .pldW::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(225,20,98,.1) 0, rgba(111,202,220,.1) 50%, rgba(61,184,143,.1) 100%);
-        animation: pulse-bg 1.5s infinite ease-out;
-        z-index: -1;
+        content: '' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90px !important;
+        height: 90px !important;
+        border-radius: 50% !important;
+        background: radial-gradient(circle, rgba(225,20,98,.1) 0, rgba(111,202,220,.1) 50%, rgba(61,184,143,.1) 100%) !important;
+        animation: pulse-bg 1.5s infinite ease-out !important;
+        z-index: -1 !important;
     }
     @keyframes pulse-bg {
         0% { transform: translate(-50%, -50%) scale(.8); opacity: .6; }
@@ -105,6 +123,8 @@ const PRELOADER_STYLES = `
 
 // ===== [3] دالة تهيئة Preloader =====
 function initPreloader() {
+    console.log('🔄 Preloader is starting...');
+    
     // إضافة CSS أولاً
     const styleContainer = document.createElement('div');
     styleContainer.innerHTML = PRELOADER_STYLES;
@@ -116,10 +136,24 @@ function initPreloader() {
     const container = document.getElementById('preloader-container');
     if (container) {
         container.innerHTML = PRELOADER_SVG;
+    } else {
+        // إذا لم يكن هناك container، أضفه في body
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = PRELOADER_SVG;
+        while (tempDiv.firstChild) {
+            document.body.prepend(tempDiv.firstChild);
+        }
     }
     
     const preloader = document.getElementById('preloader');
-    if (!preloader) return;
+    if (!preloader) {
+        console.warn('⚠️ Preloader element not found');
+        return;
+    }
+    
+    // Force show
+    preloader.style.display = 'flex';
+    preloader.classList.add('e');
     
     if (!sessionStorage.getItem('preloaderShown')) {
         sessionStorage.setItem('preloaderShown', 'true');
@@ -129,18 +163,23 @@ function initPreloader() {
                 preloader.remove();
             }
         });
-        setTimeout(() => preloader.classList.add('h'), 1500);
+        setTimeout(() => {
+            preloader.classList.add('h');
+        }, 2000);
     } else {
-        preloader.style.display = 'none';
-        preloader.remove();
+        setTimeout(() => {
+            preloader.classList.add('h');
+        }, 500);
     }
 }
 
-// ===== [4] تشغيل تلقائي =====
+// ===== [4] تشغيل فوري =====
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPreloader);
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initPreloader, 50);
+    });
 } else {
-    initPreloader();
+    setTimeout(initPreloader, 50);
 }
 
 export default initPreloader;
