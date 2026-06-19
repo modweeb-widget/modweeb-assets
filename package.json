@@ -1,0 +1,19 @@
+{
+  "name": "modweeb-assets",
+  "version": "1.0.0",
+  "description": "Modweeb Design Assets - CSS, JS, SVG for Blogger",
+  "author": "Modweeb",
+  "license": "MIT",
+  "keywords": [
+    "blogger",
+    "design",
+    "assets",
+    "modweeb",
+    "login",
+    "account"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modweeb-widget/modweeb-assets.git"
+  }
+}
