@@ -1,4 +1,7 @@
-<!-- ===== مكون Preloader ===== -->
+<!-- ========================================
+     PRELOADER COMPONENT
+     ======================================== -->
+
 <div class='pldW e' id='preloader'>
     <div class='svg-loader'>
         <svg viewBox='0 0 514 514'>
@@ -11,17 +14,22 @@
 </div>
 
 <script>
-// ===== التحكم في Preloader =====
 (function() {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
     
-    // إجبار الظهور
-    preloader.classList.add('e');
-    
-    // إخفاء بعد 2 ثانية
-    setTimeout(function() {
-        preloader.classList.add('h');
-    }, 2000);
+    if (!sessionStorage.getItem('preloaderShown')) {
+        sessionStorage.setItem('preloaderShown', 'true');
+        preloader.classList.add('e');
+        preloader.addEventListener('transitionend', function(e) {
+            if (e.propertyName === 'opacity' && getComputedStyle(preloader).opacity === '0') {
+                preloader.remove();
+            }
+        });
+        setTimeout(() => preloader.classList.add('h'), 1500);
+    } else {
+        preloader.style.display = 'none';
+        preloader.remove();
+    }
 })();
 </script>
