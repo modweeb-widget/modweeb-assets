@@ -180,3 +180,9 @@ svg path,svg line,svg circle,svg rect{stroke:currentColor;}
         bottom: 0;
     }
 }
+
+/* ================= [20] ضمان ظهور الإشعارات فوق كل العناصر ================= */
+.tNtf {
+    z-index: 9999999 !important;
+    position: fixed !important;
+}
