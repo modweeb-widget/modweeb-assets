@@ -13,10 +13,8 @@
             </div>
         </div>`;
     }
-    
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
-    
     if (!sessionStorage.getItem('preloaderShown')) {
         sessionStorage.setItem('preloaderShown', 'true');
         preloader.classList.add('e');
