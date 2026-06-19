@@ -1,4 +1,7 @@
 (function() {
+    // إزالة sessionStorage لمنع التكرار في نفس الجلسة فقط
+    // لكننا نريد ظهوره في كل مرة تفتح فيها الصفحة
+    
     const container = document.getElementById('preloader-container');
     if (container) {
         container.innerHTML = `
@@ -13,14 +16,15 @@
             </div>
         </div>`;
     }
+    
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
-    if (!sessionStorage.getItem('preloaderShown')) {
-        sessionStorage.setItem('preloaderShown', 'true');
-        preloader.classList.add('e');
-        setTimeout(() => preloader.classList.add('h'), 2000);
-    } else {
-        preloader.style.display = 'none';
-        preloader.remove();
-    }
+    
+    // إجبار ظهور preloader في كل مرة (بدون sessionStorage)
+    preloader.classList.add('e');
+    
+    // إخفاء بعد 2 ثانية
+    setTimeout(() => {
+        preloader.classList.add('h');
+    }, 2000);
 })();
