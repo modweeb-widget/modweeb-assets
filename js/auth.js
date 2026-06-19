@@ -6,6 +6,7 @@ function notify(e) {
         setTimeout(() => o.classList.remove("active"), 3000);
     }
 }
+
 async function getUserInfo(e) {
     try {
         notify("جارٍ تسجيل الدخول، يرجى الانتظار...");
@@ -15,6 +16,7 @@ async function getUserInfo(e) {
         if (!t.ok) throw new Error("Failed to fetch user info");
         const o = await t.json();
         const a = { name: o.name, email: o.email, image: o.picture };
+
         if (window.opener && !window.opener.closed) {
             localStorage.setItem("userLoggedIn", "true");
             localStorage.setItem("userName", o.name);
@@ -45,6 +47,7 @@ async function getUserInfo(e) {
         notify("فشل تسجيل الدخول. يرجى المحاولة مرة أخرى.");
     }
 }
+
 let client;
 function initAuth() {
     if (typeof google !== "undefined" && google.accounts) {
@@ -70,6 +73,7 @@ function initAuth() {
         notify("فشل تحميل مكتبة جوجل للمصادقة. يرجى التحقق من اتصالك بالإنترنت.");
     }
 }
+
 if (typeof google !== "undefined" && google.accounts) {
     initAuth();
 } else {
@@ -81,4 +85,5 @@ if (typeof google !== "undefined" && google.accounts) {
         }
     };
 }
+
 export { initAuth, notify };

@@ -4,6 +4,7 @@
     const moonIcon = document.getElementById('moon-icon');
     const sunIcon = document.getElementById('sun-icon');
     if (!container || !themeToggle || !moonIcon || !sunIcon) return;
+    
     const savedTheme = localStorage.getItem('standalone-theme');
     if (savedTheme === 'dark') {
         container.classList.add('dark-mode');
@@ -14,6 +15,7 @@
         moonIcon.style.display = 'none';
         sunIcon.style.display = 'block';
     }
+    
     themeToggle.addEventListener('click', () => {
         container.classList.toggle('dark-mode');
         const isDark = container.classList.contains('dark-mode');
@@ -27,6 +29,7 @@
             sunIcon.style.display = 'block';
         }
     });
+    
     function applyDarkModeStyles(ce) {
         if (ce.classList.contains('dark-mode')) {
             document.documentElement.style.setProperty('--bodyB', '#1a1a1a');
@@ -61,4 +64,5 @@
         }
     }
 })();
+
 export function initTheme() {}
