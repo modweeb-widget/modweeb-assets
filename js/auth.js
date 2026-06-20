@@ -2,44 +2,24 @@
 // AUTHENTICATION - تسجيل الدخول
 // ========================================
 
-// ===== [1] دالة الإشعارات (تدعم PU.tNtf والعنصر الداخلي) =====
-function notify(message) {
-    // 1. محاولة استخدام PU.tNtf من النافذة الرئيسية
-    if (window.opener && window.opener.PU && typeof window.opener.PU.tNtf === 'function') {
-        window.opener.PU.tNtf(message);
-        return;
-    }
-    
-    // 2. محاولة استخدام PU.tNtf من النافذة الحالية
-    if (window.PU && typeof window.PU.tNtf === 'function') {
-        window.PU.tNtf(message);
-        return;
-    }
-    
-    // 3. استخدام عنصر .tNtf الموجود داخل login-fullpage
-    const container = document.querySelector('.login-fullpage .tNtf');
-    if (container) {
-        let toast = container.querySelector('*');
-        if (!toast) {
-            toast = document.createElement('div');
-            container.appendChild(toast);
+// ===== [1] تعريف دالة الإشعارات (بنفس طريقة المثال) =====
+// إذا لم تكن موجودة مسبقاً، نعرفها لتسجيل في وحدة التحكم
+if (typeof notify !== 'function') {
+    window.notify = function(e) {
+        // استخدم النظام الموجود، وإلا اطبع في console
+        if (window.PU && typeof PU.tNtf === 'function') {
+            PU.tNtf(e);
+        } else if (window.opener && window.opener.PU && typeof window.opener.PU.tNtf === 'function') {
+            // محاولة استخدام PU.tNtf من النافذة الرئيسية إذا كنا في popup
+            window.opener.PU.tNtf(e);
+        } else {
+            console.log('[إشعار]', e);
         }
-        toast.textContent = message;
-        
-        // إعادة تشغيل الأنيميشن
-        container.style.animation = 'none';
-        toast.style.animation = 'none';
-        void container.offsetWidth;
-        container.style.animation = '';
-        toast.style.animation = '';
-        return;
-    }
-    
-    // 4. الطريقة الاحتياطية: console.log
-    console.log('📢 [Notification]', message);
+    };
 }
+// ============================================================
 
-// ===== [2] باقي الكود كما هو =====
+// ===== [2] جلب معلومات المستخدم =====
 async function getUserInfo(token) {
     try {
         notify("جارٍ تسجيل الدخول، يرجى الانتظار...");
@@ -81,6 +61,7 @@ async function getUserInfo(token) {
     }
 }
 
+// ===== [3] تهيئة Google OAuth =====
 let client;
 function initAuth() {
     if (typeof google !== "undefined" && google.accounts) {
@@ -113,10 +94,12 @@ function initAuth() {
     }
 }
 
+// ===== [4] تشغيل تلقائي =====
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuth);
 } else {
     setTimeout(initAuth, 100);
 }
 
+// تصدير الدوال
 export { initAuth, notify };

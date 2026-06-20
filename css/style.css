@@ -188,10 +188,8 @@ svg path,svg line,svg circle,svg rect{stroke:currentColor;}
 }
 
 /* ================= [21] إشعارات فوق كل العناصر ================= */
-.login-fullpage .tNtf {
     z-index: 9999999 !important;
     position: fixed !important;
 }
-.login-fullpage .tNtf > * {
     z-index: 9999999 !important;
 }
