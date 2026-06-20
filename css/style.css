@@ -193,3 +193,49 @@ svg path,svg line,svg circle,svg rect{stroke:currentColor;}
 }
     z-index: 9999999 !important;
 }
+
+/* ================= [21] تحسين ظهور الأزرار ================= */
+#custom-google-btn {
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+#custom-google-btn:hover {
+    background: var(--bodyB) !important;
+}
+#custom-google-btn:active {
+    transform: scale(0.98);
+}
+
+/* ================= [22] تحسين أيقونات الوضع الليلي ================= */
+.dark-mode .social-link img,
+.dark-mode .theme-toggle img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* ================= [23] تحسين التوافق مع الشاشات الصغيرة ================= */
+@media (max-width: 480px) {
+    .logo-box {
+        width: 28px !important;
+        height: 28px !important;
+    }
+    .logo-box.small {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .theme-toggle {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .theme-toggle img {
+        width: 12px !important;
+        height: 12px !important;
+    }
+    .social-link {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    .social-link img {
+        width: 12px !important;
+        height: 12px !important;
+    }
+}
