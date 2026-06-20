@@ -2,43 +2,44 @@
 // AUTHENTICATION - تسجيل الدخول
 // ========================================
 
-// ===== [1] دالة الإشعارات (تدعم PU.tNtf من القالب) =====
+// ===== [1] دالة الإشعارات (تدعم PU.tNtf والعنصر الداخلي) =====
 function notify(message) {
-    // محاولة استخدام PU.tNtf من النافذة الرئيسية (إذا كنا في popup)
+    // 1. محاولة استخدام PU.tNtf من النافذة الرئيسية
     if (window.opener && window.opener.PU && typeof window.opener.PU.tNtf === 'function') {
         window.opener.PU.tNtf(message);
         return;
     }
     
-    // محاولة استخدام PU.tNtf من النافذة الحالية
+    // 2. محاولة استخدام PU.tNtf من النافذة الحالية
     if (window.PU && typeof window.PU.tNtf === 'function') {
         window.PU.tNtf(message);
         return;
     }
     
-    // الطريقة الاحتياطية: استخدام console.log إذا لم يعمل أي من الطرق السابقة
-    console.log('📢 [Notification]', message);
-    
-    // محاولة إنشاء عنصر toast مؤقت (كحل أخير)
-    try {
-        const existingToast = document.querySelector('.tNtf > *');
-        if (existingToast) {
-            existingToast.textContent = message;
-            const container = existingToast.closest('.tNtf');
-            if (container) {
-                container.style.animation = 'none';
-                existingToast.style.animation = 'none';
-                void container.offsetWidth;
-                container.style.animation = '';
-                existingToast.style.animation = '';
-            }
+    // 3. استخدام عنصر .tNtf الموجود داخل login-fullpage
+    const container = document.querySelector('.login-fullpage .tNtf');
+    if (container) {
+        let toast = container.querySelector('*');
+        if (!toast) {
+            toast = document.createElement('div');
+            container.appendChild(toast);
         }
-    } catch(e) {
-        // تجاهل الأخطاء
+        toast.textContent = message;
+        
+        // إعادة تشغيل الأنيميشن
+        container.style.animation = 'none';
+        toast.style.animation = 'none';
+        void container.offsetWidth;
+        container.style.animation = '';
+        toast.style.animation = '';
+        return;
     }
+    
+    // 4. الطريقة الاحتياطية: console.log
+    console.log('📢 [Notification]', message);
 }
 
-// ===== [2] جلب معلومات المستخدم =====
+// ===== [2] باقي الكود كما هو =====
 async function getUserInfo(token) {
     try {
         notify("جارٍ تسجيل الدخول، يرجى الانتظار...");
@@ -80,7 +81,6 @@ async function getUserInfo(token) {
     }
 }
 
-// ===== [3] تهيئة Google OAuth =====
 let client;
 function initAuth() {
     if (typeof google !== "undefined" && google.accounts) {
@@ -104,7 +104,6 @@ function initAuth() {
         }
     } else {
         notify("❌ فشل تحميل مكتبة جوجل للمصادقة. يرجى التحقق من اتصالك بالإنترنت.");
-        // محاولة إعادة التحميل بعد فترة
         setTimeout(() => {
             if (typeof google === "undefined" || !google.accounts) {
                 console.warn("⚠️ Google GSI still not loaded, retrying...");
@@ -114,13 +113,10 @@ function initAuth() {
     }
 }
 
-// ===== [4] تشغيل تلقائي =====
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuth);
 } else {
-    // تأخير بسيط للتأكد من تحميل كل شيء
     setTimeout(initAuth, 100);
 }
 
-// تصدير الدوال للاستخدام في الوحدات الأخرى
 export { initAuth, notify };
