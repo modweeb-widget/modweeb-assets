@@ -239,3 +239,34 @@ svg path,svg line,svg circle,svg rect{stroke:currentColor;}
         height: 12px !important;
     }
 }
+
+/* ================= [24] تنسيقات الوضع الليلي لصفحة الحساب ================= */
+.dark-mode .settings-btn:hover {
+    background: #3d3d3d !important;
+    border-color: #555 !important;
+}
+.dark-mode .settings-panel {
+    background: #2d2d2d !important;
+    border-color: #404040 !important;
+}
+.dark-mode .input {
+    background: #1a1a1a !important;
+    border-color: #404040 !important;
+    color: #e5e5e5 !important;
+}
+.dark-mode .alert-card {
+    background: #2d2d2d !important;
+    border-color: #404040 !important;
+}
+.dark-mode .alert-card-header {
+    color: #e5e5e5 !important;
+}
+.dark-mode .alert-card-title {
+    color: #ffffff !important;
+}
+.dark-mode .alert-card-description {
+    color: #9ca3af !important;
+}
+.dark-mode .alert-card-footer {
+    border-color: #404040 !important;
+}
