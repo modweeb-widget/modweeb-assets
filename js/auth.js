@@ -2,43 +2,40 @@
 // AUTHENTICATION - تسجيل الدخول
 // ========================================
 
-// ===== [1] دالة الإشعارات (باستخدام تنسيقات القالب) =====
-function notify(message, isAlt = false) {
-    // البحث عن حاوية الإشعارات في القالب
-    const container = document.querySelector('.tNtf');
-    if (!container) {
-        console.warn('⚠️ عنصر .tNtf غير موجود في الصفحة');
+// ===== [1] دالة الإشعارات (تدعم PU.tNtf من القالب) =====
+function notify(message) {
+    // محاولة استخدام PU.tNtf من النافذة الرئيسية (إذا كنا في popup)
+    if (window.opener && window.opener.PU && typeof window.opener.PU.tNtf === 'function') {
+        window.opener.PU.tNtf(message);
         return;
     }
     
-    // البحث عن عنصر الإشعار الداخلي
-    let toast = container.querySelector('*');
-    if (!toast) {
-        // إذا لم يكن هناك عنصر داخلي، أنشئ واحداً
-        toast = document.createElement('div');
-        container.appendChild(toast);
+    // محاولة استخدام PU.tNtf من النافذة الحالية
+    if (window.PU && typeof window.PU.tNtf === 'function') {
+        window.PU.tNtf(message);
+        return;
     }
     
-    // تعيين النص
-    toast.textContent = message;
+    // الطريقة الاحتياطية: استخدام console.log إذا لم يعمل أي من الطرق السابقة
+    console.log('📢 [Notification]', message);
     
-    // إضافة/إزالة الصنف alt (للتنبيهات البديلة)
-    if (isAlt) {
-        container.classList.add('alt');
-    } else {
-        container.classList.remove('alt');
+    // محاولة إنشاء عنصر toast مؤقت (كحل أخير)
+    try {
+        const existingToast = document.querySelector('.tNtf > *');
+        if (existingToast) {
+            existingToast.textContent = message;
+            const container = existingToast.closest('.tNtf');
+            if (container) {
+                container.style.animation = 'none';
+                existingToast.style.animation = 'none';
+                void container.offsetWidth;
+                container.style.animation = '';
+                existingToast.style.animation = '';
+            }
+        }
+    } catch(e) {
+        // تجاهل الأخطاء
     }
-    
-    // إعادة تشغيل الأنيميشن
-    container.style.animation = 'none';
-    toast.style.animation = 'none';
-    
-    // فرض إعادة التدفق
-    void container.offsetWidth;
-    
-    // إعادة تفعيل الأنيميشن
-    container.style.animation = '';
-    toast.style.animation = '';
 }
 
 // ===== [2] جلب معلومات المستخدم =====
@@ -63,7 +60,7 @@ async function getUserInfo(token) {
             const origin = window.location.origin;
             window.opener.postMessage({ type: "loginSuccess", user: user }, origin);
             window.opener.postMessage({ type: "storageUpdate" }, origin);
-            notify("✅ تم تسجيل الدخول بنجاح!");
+            notify(`✅ أهلاً بك، ${data.name}!`);
             setTimeout(() => window.close(), 1500);
         } else {
             localStorage.setItem("userLoggedIn", "true");
@@ -74,7 +71,7 @@ async function getUserInfo(token) {
                 localStorage.setItem("userJoinDate", new Date().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }));
             }
             const redirect = new URLSearchParams(window.location.search).get("cbu") || "/";
-            notify("✅ تم تسجيل الدخول بنجاح!");
+            notify(`✅ أهلاً بك، ${data.name}!`);
             setTimeout(() => { window.location.href = redirect; }, 1000);
         }
     } catch (error) {
@@ -107,6 +104,13 @@ function initAuth() {
         }
     } else {
         notify("❌ فشل تحميل مكتبة جوجل للمصادقة. يرجى التحقق من اتصالك بالإنترنت.");
+        // محاولة إعادة التحميل بعد فترة
+        setTimeout(() => {
+            if (typeof google === "undefined" || !google.accounts) {
+                console.warn("⚠️ Google GSI still not loaded, retrying...");
+                initAuth();
+            }
+        }, 3000);
     }
 }
 
@@ -114,7 +118,9 @@ function initAuth() {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuth);
 } else {
-    initAuth();
+    // تأخير بسيط للتأكد من تحميل كل شيء
+    setTimeout(initAuth, 100);
 }
 
+// تصدير الدوال للاستخدام في الوحدات الأخرى
 export { initAuth, notify };
